@@ -245,7 +245,6 @@ func TestTable_GetApplicableIndexes(t *testing.T) {
 func TestLiteralToMemoryCell(t *testing.T) {
 	var i *int32
 	assert.Equal(t, i, literalToMemoryCell(&Token{Value: "null", Kind: NullKind}).AsInt())
-	assert.Equal(t, i, literalToMemoryCell(&Token{Value: "not an int", Kind: NumericKind}).AsInt())
 	assert.Equal(t, int32(2), *literalToMemoryCell(&Token{Value: "2", Kind: NumericKind}).AsInt())
 
 	var s *string

@@ -14,11 +14,11 @@ $ go run cmd/main.go
 * [cmd/main.go](./cmd/main.go)
   * Contains the REPL and high-level interface to the project
   * Dataflow is: user input -> lexer -> parser -> in-memory backend
-* [lexer.go](./lexer.go)
+* [src/lexer.go](./lexer.go)
   * Handles breaking user input into tokens for the parser
-* [parser.go](./parser.go)
+* [src/parser.go](./parser.go)
   * Matches a list of tokens into an AST or fails if the user input is not a valid program
-* [memory.go](./memory.go)
+* [src/memory.go](./memory.go)
   * An example, in-memory backend supporting the Backend interface (defined in backend.go)
 
 ## Blog series

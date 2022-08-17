@@ -8,5 +8,5 @@ cover:
 	go tool cover -func=coverage.out
 
 lint:
-	go vet .
+	go vet -v ./src
 	golangci-lint run
