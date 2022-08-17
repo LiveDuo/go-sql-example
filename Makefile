@@ -2,7 +2,7 @@ fmt:
 	gofmt -w -s .
 
 test:
-	go test -race -cover -coverprofile=coverage.out .
+	go test -v ./src -race -cover -coverprofile=coverage.out .
 
 cover:
 	go tool cover -func=coverage.out

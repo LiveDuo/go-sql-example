@@ -1,10 +1,13 @@
 package main
 
 import (
-	"github.com/eatonphil/gosql"
+	"fmt"
+	gosql "gosql/src"
 )
 
 func main() {
+	fmt.Println("debug 2")
+
 	mb := gosql.NewMemoryBackend()
 
 	gosql.RunRepl(mb)

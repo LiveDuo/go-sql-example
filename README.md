@@ -1,109 +1,13 @@
-# gosql
-
-An early PostgreSQL implementation in Go.
-
-[![gosql](https://circleci.com/gh/eatonphil/gosql.svg?style=svg)](https://circleci.com/gh/eatonphil/gosql)
-
 ## Example
 
 ```bash
-$ git clone git@github.com:eatonphil/gosql
+$ git clone https://github.com/eatonphil/gosql
 $ cd gosql
 $ go run cmd/main.go
-Welcome to gosql.
 # CREATE TABLE users (id INT PRIMARY KEY, name TEXT, age INT);
-ok
-# \d users
-Table "users"
-  Column |  Type   | Nullable
----------+---------+-----------
-  id     | integer | not null
-  name   | text    |
-  age    | integer |
-Indexes:
-        "users_pkey" PRIMARY KEY, rbtree ("id")
-
 # INSERT INTO users VALUES (1, 'Corey', 34);
-ok
-# INSERT INTO users VALUES (1, 'Max', 29);
-Error inserting values: Duplicate key value violates unique constraint
-# INSERT INTO users VALUES (2, 'Max', 29);
-ok
-# SELECT * FROM users WHERE id = 2;
-  id | name | age
------+------+------
-   2 | Max  |  29
-(1 result)
-ok
-# SELECT id, name, age + 3 FROM users WHERE id = 2 OR id = 1;
-  id | name  | ?column?
------+-------+-----------
-   1 | Corey |       37
-   2 | Max   |       32
-(2 results)
-ok
+# SELECT * FROM users WHERE id = 1;
 ```
-
-## Using the database/sql driver
-
-See cmd/sqlexample/main.go:
-
-```go
-package main
-
-import (
-	"database/sql"
-	"fmt"
-
-	_ "github.com/eatonphil/gosql"
-)
-
-func main() {
-	db, err := sql.Open("postgres", "")
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-
-	_, err = db.Query("CREATE TABLE users (name TEXT, age INT);")
-	if err != nil {
-		panic(err)
-	}
-
-	_, err = db.Query("INSERT INTO users VALUES ('Terry', 45);")
-	if err != nil {
-		panic(err)
-	}
-
-	_, err = db.Query("INSERT INTO users VALUES ('Anette', 57);")
-	if err != nil {
-		panic(err)
-	}
-
-	rows, err := db.Query("SELECT name, age FROM users;")
-	if err != nil {
-		panic(err)
-	}
-
-	var name string
-	var age uint64
-	defer rows.Close()
-	for rows.Next() {
-		err := rows.Scan(&name, &age)
-		if err != nil {
-			panic(err)
-		}
-
-		fmt.Printf("Name: %s, Age: %d\n", name, age)
-	}
-
-	if err = rows.Err(); err != nil {
-		panic(err)
-	}
-}
-```
-
-Parameterization is not currently supported.
 
 ## Architecture
 
@@ -117,32 +21,9 @@ Parameterization is not currently supported.
 * [memory.go](./memory.go)
   * An example, in-memory backend supporting the Backend interface (defined in backend.go)
 
-## Contributing
-
-* Add a new operator (such as `-`, `*`, etc.)
-* Add a new data type (such as `VARCHAR(n)``)
-
-In each case, you'll probably have to add support in the lexer,
-parser, and in-memory backend. I recommend going in that order.
-
-In all cases, make sure the code is formatted (`make fmt`), linted
-(`make lint`) and passes tests (`make test`). New code should have
-tests.
-
 ## Blog series
 
 * [Writing a SQL database from scratch in Go](https://notes.eatonphil.com/database-basics.html)
 * [Binary expressions and WHERE filters](https://notes.eatonphil.com/database-basics-expressions-and-where.html)
 * [Indexes](https://notes.eatonphil.com/database-basics-indexes.html)
 * [A database/sql driver](https://notes.eatonphil.com/database-basics-a-database-sql-driver.html)
-
-## Further reading
-
-Here are some similar projects written in Go.
-
-* [go-mysql-server](https://github.com/src-d/go-mysql-server)
-  * This is a MySQL frontend (with an in-memory backend for testing only).
-* [ramsql](https://github.com/proullon/ramsql)
-  * This is a WIP PostgreSQL-compatible in-memory database.
-* [CockroachDB](https://github.com/cockroachdb/cockroach)
-  * This is a production-ready PostgreSQL-compatible database.
