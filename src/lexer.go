@@ -498,7 +498,7 @@ lex:
 		for _, t := range tokens {
 			fmt.Println(t.Value)
 		}
-		return nil, fmt.Errorf("Unable to lex token%s, at %d:%d", hint, cur.loc.Line, cur.loc.Col)
+		return nil, fmt.Errorf("unable to lex token%s, at %d:%d", hint, cur.loc.Line, cur.loc.Col)
 	}
 
 	return tokens, nil

@@ -67,23 +67,23 @@ type Backend interface {
 type EmptyBackend struct{}
 
 func (eb EmptyBackend) CreateTable(_ *CreateTableStatement) error {
-	return errors.New("Create not supported")
+	return errors.New("create not supported")
 }
 
 func (eb EmptyBackend) DropTable(_ *DropTableStatement) error {
-	return errors.New("Drop not supported")
+	return errors.New("drop not supported")
 }
 
 func (eb EmptyBackend) CreateIndex(_ *CreateIndexStatement) error {
-	return errors.New("Create index not supported")
+	return errors.New("create index not supported")
 }
 
 func (eb EmptyBackend) Insert(_ *InsertStatement) error {
-	return errors.New("Insert not supported")
+	return errors.New("insert not supported")
 }
 
 func (eb EmptyBackend) Select(_ *SelectStatement) (*Results, error) {
-	return nil, errors.New("Select not supported")
+	return nil, errors.New("select not supported")
 }
 
 func (eb EmptyBackend) GetTables() []TableMetadata {

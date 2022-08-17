@@ -647,7 +647,7 @@ func (p Parser) Parse(source string) (*Ast, error) {
 		stmt, newCursor, ok := p.parseStatement(tokens, cursor, tokenFromSymbol(SemicolonSymbol))
 		if !ok {
 			p.helpMessage(tokens, cursor, "Expected statement")
-			return nil, errors.New("Failed to parse, expected statement")
+			return nil, errors.New("failed to parse, expected statement")
 		}
 		cursor = newCursor
 
@@ -665,7 +665,7 @@ func (p Parser) Parse(source string) (*Ast, error) {
 
 		if !atLeastOneSemicolon {
 			p.helpMessage(tokens, cursor, "Expected semi-colon delimiter between statements")
-			return nil, errors.New("Missing semi-colon between statements")
+			return nil, errors.New("missing semi-colon between statements")
 		}
 	}
 

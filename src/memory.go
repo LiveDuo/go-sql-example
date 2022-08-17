@@ -597,7 +597,7 @@ func (mb *MemoryBackend) Select(slct *SelectStatement) (*Results, error) {
 		limit = int(*v.AsInt())
 	}
 	if limit < 0 {
-		return nil, fmt.Errorf("Invalid, negative limit")
+		return nil, fmt.Errorf("invalid, negative limit")
 	}
 
 	offset := 0
@@ -610,7 +610,7 @@ func (mb *MemoryBackend) Select(slct *SelectStatement) (*Results, error) {
 		offset = int(*v.AsInt())
 	}
 	if offset < 0 {
-		return nil, fmt.Errorf("Invalid, negative limit")
+		return nil, fmt.Errorf("invalid, negative limit")
 	}
 
 	rowIndex := -1
